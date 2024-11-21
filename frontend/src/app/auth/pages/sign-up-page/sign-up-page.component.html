@@ -1,0 +1,63 @@
+<section class="sign-up flex items-center justify-center bg-slate-100 p-5 dark:bg-slate-900">
+  <div class="grid grid-cols-1 lg:grid-cols-2 items-stretch bg-slate-200 rounded-xl md:rounded-3xl max-w-7xl dark:bg-slate-700">
+    <div class="form flex flex-col p-4 md:px-16 md:py-8">
+      <h2 class="text-3xl lg:text-5xl text-center font-bold mb-6 dark:text-slate-300">Registrarme</h2>
+      <form [formGroup]="signUpForm" class="w-full" (ngSubmit)="onSubmit()">
+        <div>
+          <mat-form-field class="w-full mb-2">
+            <mat-label>Ingresa tu email</mat-label>
+            <input matInput placeholder="pat@example.com" name="email" id="email" formControlName="email" required>
+            <mat-error *ngIf="email?.hasError('required')">Es necesario el email</mat-error>
+            <mat-error *ngIf="email?.hasError('email')">El formato no es correcto</mat-error>
+            <mat-error *ngIf="email?.hasError('emailTaken')">El correo ya ha sido registrado</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="w-full mb-2">
+            <mat-label>Ingresa tus apellidos</mat-label>
+            <input matInput name="lastname" id="lastname" formControlName="lastname" required>
+            <mat-error *ngIf="lastname?.hasError('required')">Es necesario el apellido</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="w-full mb-2">
+            <mat-label>Ingresa tus nombres</mat-label>
+            <input matInput name="name" id="name" formControlName="name" required>
+            <mat-error *ngIf="name?.hasError('required')">Es necesario el nombre</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="w-full mb-5">
+            <mat-label>Ingresa tu contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" minlength="6">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password?.hasError('required')">Es necesaria la contraseña</mat-error>
+            <mat-error *ngIf="password?.hasError('containsLetters')">La contraseña debe incluir letras</mat-error>
+            <mat-error *ngIf="password?.hasError('containsCapitalLetter')">La contraseña debe incluir una letra mayúscula</mat-error>
+            <mat-error *ngIf="password?.hasError('containsSpecialCharacters')">La contraseña debe incluir caracteres especiales: @#!$&</mat-error>
+            <mat-error *ngIf="password?.hasError('minlength')">La contraseña debe 6 caracteres o más</mat-error>
+          </mat-form-field>
+        </div>
+        <button type="submit" mat-flat-button color="primary" class="w-full mt-2 bg-core-primary text-white rounded-lg" [disabled]="isSubmitting">
+          <mat-icon *ngIf="!isSubmitting">save</mat-icon>
+          {{ isSubmitting ? 'Enviando formulario...' : 'Crear mi cuenta' }}
+        </button>
+      </form>
+
+      <div class="bg-green-100 text-green-700 p-3 mt-8 rounded" #alert>
+        <p class="font-bold">Su cuenta ha sido creada</p>
+        <p>Hemos enviado un correo a su email para que puedo verificarlo.</p>
+        <p class="mb-0">Antes de iniciar sesión primero debe verificar su correo.</p>
+      </div>
+    </div>
+    <div class="sign-in-redirect flex flex-col items-center justify-center bg-core-primary px-6 py-8 text-white rounded-xl rounded-t-2xl md:rounded-3xl lg:rounded-l-[4rem]">
+      <h2 class="text-3xl text-center lg:text-5xl font-bold mb-6">¿Ya tienes cuenta?</h2>
+      <p class="text-center">
+        Inicia sesión ahora y empieza a disfrutar de los beneficios de agilizar tus clases.
+      </p>
+      <button class="text-lg mt-4 border-[1px] border-white text-white p-2 md:px-12 rounded-lg hover:bg-white hover:text-core-primary" routerLink="/auth/sign-in">Iniciar sesión</button>
+    </div>
+  </div>
+</section>

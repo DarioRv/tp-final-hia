@@ -1,0 +1,67 @@
+<section class="w-fit mx-auto">
+  <shared-loader size="15px" *ngIf="isLoading"></shared-loader>
+
+  <div *ngIf="!isLoading && course">
+    <h3
+      class="text-core-primary font-bold text-center text-3xl mb-3 md:text-4xl md:mb-7 dark:text-slate-200"
+    >
+      {{ course.nombre }}
+    </h3>
+    <div
+      class="bg-core-primary rounded-xl py-5 px-4 md:px-10 my-6 dark:bg-slate-800"
+      *ngIf="noSchedulesFound === false && !isOutsideSchedule"
+    >
+      <p class="text-white m-0 text-center dark:text-slate-200">
+        Introduce tu <strong>LU</strong>
+        <mat-icon class="text-sm w-fit" matTooltip="Libreta universitaria"
+          >help</mat-icon
+        >
+        para registrar tu asistencia
+      </p>
+      <p class="text-center">
+        <strong class="text-white text-xs"
+          >Tenés tiempo hasta las {{ currentSchedule?.salida }}</strong
+        >
+      </p>
+
+      <attendance-form
+        [attendanceCode]="course.codigoAsistencia!"
+        [courseName]="course.nombre!"
+      ></attendance-form>
+    </div>
+  </div>
+
+  <div
+    class="p-2 bg-red-100 text-red-700 rounded w-fit mx-auto mb-5"
+    *ngIf="isOutsideSchedule"
+  >
+    <p class="font-bold text-center m-0">
+      Lo sentimos, te encuentras fuera del horario permitido.
+    </p>
+  </div>
+
+  <div
+    class="p-2 bg-slate-400 text-slate-700 rounded w-fit mx-auto mb-5"
+    *ngIf="noSchedulesFound"
+  >
+    <p class="font-bold text-center m-0">
+      Este curso aún no tiene horarios asignados.
+    </p>
+  </div>
+
+  <div
+    class="p-2 bg-slate-400 text-slate-700 rounded w-fit mx-auto mb-5"
+    *ngIf="!isLoading && !course"
+  >
+    <h3 class="font-bold text-3xl md:text-4xl">
+      No se encontró ningún curso con el código de asistencia ingresado
+    </h3>
+    <p class="text-center m-0">
+      Por favor, verificá que el código sea correcto.
+    </p>
+  </div>
+
+  <a class="underline text-slate-400 block" routerLink="/attendance"
+    >Regresar al inicio</a
+  >
+</section>

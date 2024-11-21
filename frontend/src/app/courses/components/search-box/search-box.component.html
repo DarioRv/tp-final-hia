@@ -1,0 +1,28 @@
+<mat-form-field class="w-full">
+  <mat-label>Buscar curso</mat-label>
+  <input
+    type="text"
+    matInput
+    [formControl]="searchInput"
+    [matAutocomplete]="auto"
+    (keyup)="onKeyUp(searchInput.value || '')"
+  />
+  <mat-autocomplete
+    autoActiveFirstOption
+    #auto="matAutocomplete"
+    (optionSelected)="onSelectedOption($event)"
+  >
+    <mat-option *ngFor="let course of suggestedCourses" [value]="course">
+      {{ course.nombre }}
+    </mat-option>
+    <mat-option disabled value="" *ngIf="status === 'no content'">
+      No se encontró nada con el término '{{ searchInput.value }}'
+    </mat-option>
+    <mat-option disabled value="" *ngIf="status === 'pending'">
+      <div class="flex items-center gap-3">
+        Buscando coincidencias
+        <mat-spinner class="size-4"></mat-spinner>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

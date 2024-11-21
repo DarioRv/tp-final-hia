@@ -1,0 +1,100 @@
+<section
+  class="sign-in flex items-center justify-center bg-slate-100 p-5 dark:bg-slate-900"
+>
+  <div
+    class="grid grid-cols-1 lg:grid-cols-2 items-stretch h-min bg-slate-200 rounded-xl md:rounded-3xl max-w-7xl dark:bg-slate-700"
+  >
+    <div class="form flex flex-col p-4 md:px-16 md:py-8">
+      <h2
+        class="text-3xl lg:text-5xl text-center font-bold mb-6 dark:text-slate-300"
+      >
+        Iniciar sesión
+      </h2>
+      <p class="text-center">Usá tu email y contraseña</p>
+      <form
+        [formGroup]="signInForm"
+        class="w-full max-w-30rem"
+        (ngSubmit)="onSubmit()"
+      >
+        <div>
+          <mat-form-field class="w-full mb-1">
+            <mat-label>Ingresa tu email</mat-label>
+            <input
+              matInput
+              placeholder="pat@example.com"
+              name="email"
+              id="email"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngIf="email?.hasError('required')"
+              >Es necesario el email</mat-error
+            >
+            <mat-error *ngIf="email?.hasError('email')"
+              >El formato no es correcto</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="w-full mb-1">
+            <mat-label>Ingresa tu contraseña</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              name="password"
+              id="password"
+              formControlName="password"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="password?.hasError('required')"
+              >Es necesaria la contraseña</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <button
+          type="submit"
+          mat-flat-button
+          class="w-full mt-2 text-white rounded-lg bg-core-primary-500"
+          [disabled]="isSubmitting"
+        >
+          <mat-icon *ngIf="!isSubmitting">login</mat-icon>
+          {{ isSubmitting ? "Autenticando" : "Iniciar sesión" }}
+          <mat-spinner
+            class="inline-block size-4"
+            *ngIf="isSubmitting"
+          ></mat-spinner>
+        </button>
+      </form>
+
+      <a class="mx-auto mt-6" routerLink="/auth/forgot-password"
+        >Olvidé mi contraseña</a
+      >
+    </div>
+    <div
+      class="sign-up-redirect flex flex-col items-center justify-center bg-core-primary px-6 py-8 text-white rounded-xl rounded-t-2xl md:rounded-3xl lg:rounded-l-[4rem]"
+    >
+      <h2 class="text-3xl text-center lg:text-5xl font-bold mb-6">
+        ¿No tienes cuenta?
+      </h2>
+      <p class="text-center">
+        Registrate ahora y empieza a disfrutar de los beneficios de agilizar tus
+        clases.
+      </p>
+      <button
+        class="text-lg mt-4 border-[1px] border-white text-white p-2 md:px-12 rounded-lg hover:bg-white hover:text-core-primary"
+        routerLink="/auth/sign-up"
+      >
+        Registrarme
+      </button>
+    </div>
+  </div>
+</section>

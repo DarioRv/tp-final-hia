@@ -1,0 +1,34 @@
+<div class="link-configuration my-3">
+  <p class="bg-slate-100 dark:bg-slate-700 rounded p-2">
+    <small class="text-core-primary dark:text-core-primary-400"
+      >Código de asistencia</small
+    >
+    <br />
+    <span class="text-3xl">{{
+      course.codigoAsistencia
+        ? course.codigoAsistencia
+        : "Aún no generaste el código"
+    }}</span>
+  </p>
+  <div class="buttons flex gap-2">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="showQRCode()"
+      *ngIf="course.codigoAsistencia"
+    >
+      Mostrar QR
+    </button>
+    <button mat-button color="primary" (click)="onChangeAttendanceCode()">
+      {{ course.codigoAsistencia ? "Cambiar link" : "Generar link" }}
+    </button>
+  </div>
+  <div class="w-fit bg-slate-500 p-3 my-4 rounded" *ngIf="seeQRCode">
+    <qr-code
+      [value]="qrCodeUrl"
+      errorCorrectionLevel="M"
+      darkColor="#333"
+      [margin]="0"
+    ></qr-code>
+  </div>
+</div>

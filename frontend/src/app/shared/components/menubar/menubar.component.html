@@ -1,0 +1,28 @@
+<nav
+  class="flex gap-3 max-w-[1400px] mt-12 mx-auto dark:bg-transparent dark:border-none dark:text-white border rounded py-2 px-5"
+>
+  <div *ngFor="let item of items">
+    <a
+      [routerLink]="item.routerLink"
+      mat-button
+      color="primary"
+      *ngIf="!item.items"
+      >{{ item.label }}</a
+    >
+    <ng-container *ngIf="item.items">
+      <a mat-button color="primary" [matMenuTriggerFor]="belowMenu">{{
+        item.label
+      }}</a>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <a
+          [routerLink]="subItem.routerLink"
+          mat-menu-item
+          *ngFor="let subItem of item.items"
+        >
+          {{ subItem.label }}
+        </a>
+      </mat-menu>
+    </ng-container>
+  </div>
+  <shared-theme-toggle-button class="ml-auto"></shared-theme-toggle-button>
+</nav>

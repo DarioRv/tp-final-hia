@@ -1,0 +1,30 @@
+<section class="course-details flex flex-col">
+  <article class="loading-layout" *ngIf="isLoading; else courseDetails">
+    <tab-group-placeholder></tab-group-placeholder>
+  </article>
+  <ng-template #courseDetails>
+    <h2>{{ course.nombre }}</h2>
+    <article class="about">
+      <div
+        class="bg-white rounded border-slate-400 shadow-xl p-3 dark:bg-slate-800"
+      >
+        <mat-tab-group>
+          <mat-tab label="Alumnos">
+            <course-student-list [courseId]="course.id"></course-student-list>
+          </mat-tab>
+          <mat-tab label="Asistencia del día">
+            <course-assistance-view
+              [courseData]="course"
+            ></course-assistance-view>
+          </mat-tab>
+          <mat-tab label="Opciones">
+            <course-settings [courseData]="course"></course-settings>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </article>
+    <article>
+      <course-attendance-history [course]="course"></course-attendance-history>
+    </article>
+  </ng-template>
+</section>

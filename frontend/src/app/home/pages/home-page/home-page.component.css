@@ -1,0 +1,39 @@
+.spacer {
+  padding: 40px 180px;
+}
+
+main {
+  height: calc(100vh - 60px);
+  display: grid;
+  place-items: center;
+}
+
+button:hover {
+  background-color: #4550ec;
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: 3rem;
+}
+
+.benefits > ul li {
+  border-radius: 25px;
+  padding: 15px 30px;
+  transition: .3s all;
+}
+
+.how-works > ul li {
+  border-left: 4px solid #3743e9;
+  padding: 10px;
+  background-color: #313ee95b;
+  margin-bottom: .5rem;
+}
+
+.steper .step p {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}

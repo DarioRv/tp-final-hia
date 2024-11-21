@@ -1,0 +1,21 @@
+<mat-list>
+  <mat-list-item>
+    <div class="flex justify-between items-center text-wrap dark:text-slate-300">
+      Cambiar los datos actuales del curso
+      <button mat-button color="warn" (click)="onEditCourse()">
+        <mat-icon>edit</mat-icon>
+        <span class="hidden md:inline">Editar datos del curso</span>
+      </button>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <div class="flex justify-between items-center dark:text-slate-300">
+      Eliminar curso
+      <button mat-button color="warn" (click)="onDeleteCourse()">
+        <mat-icon>delete</mat-icon>
+        <span class="hidden md:inline">Cerrar curso</span>
+      </button>
+    </div>
+  </mat-list-item>
+ </mat-list>

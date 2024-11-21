@@ -1,0 +1,71 @@
+<div
+  dragAndDrop
+  (fileDropped)="onDropFile($event)"
+  class="dropzone bg-white dark:bg-slate-700 text-center relative border-2 rounded p-8"
+  [ngClass]="{
+    'border-dashed border-slate-400': !selectedFile,
+    'border-solid border-core-primary dark:border-core-primary-400':
+      selectedFile
+  }"
+>
+  <input
+    class="opacity-0 absolute top-0 left-0"
+    type="file"
+    id="fileDropRef"
+    [accept]="acceptedFileType"
+    (change)="onSelectFileFromBrowser($event)"
+    #fileDropRef
+  />
+  <ng-template [ngIf]="!selectedFile">
+    <img src="" alt="" />
+    <h3 class="text-xl text-slate-700 dark:text-slate-200">
+      Arrastra y suelta tu archivo aquí
+    </h3>
+    <p class="mb-5">o</p>
+    <label
+      for="fileDropRef"
+      class="text-white rounded bg-core-primary p-2 hover:cursor-pointer dark:bg-core-primary-400 dark:text-black"
+      >Buscar en mi computadora</label
+    >
+  </ng-template>
+  <ng-template [ngIf]="selectedFile">
+    <h3 class="text-base text-slate-700">Archivo seleccionado</h3>
+    <div
+      class="bg-slate-100 flex justify-between items-center rounded px-6 py-2 z-20 mb-4 dark:bg-slate-700"
+    >
+      <mat-icon class="text-green-700 dark:text-green-400"
+        >description</mat-icon
+      >
+      <p class="m-0">{{ selectedFile.name }} - {{ selectedFile.size }} bytes</p>
+      <button
+        class="text-red-600 font-bold hover:text-white hover:bg-red-600 transition-colors duration-50"
+        mat-icon-button
+        matTooltip="Quitar archivo"
+        (click)="onRemove()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <button mat-flat-button color="primary" (click)="onUpload()">
+      <mat-icon>upload</mat-icon>
+      Subir
+    </button>
+  </ng-template>
+  <ng-template [ngIf]="errors.length != 0">
+    <ul class="mt-5">
+      <li
+        *ngFor="let error of errors; index as i"
+        class="bg-red-100 text-red-600 p-2 rounded flex items-center justify-between border-l-4 border-red-600"
+      >
+        <div class="flex items-center gap-2">
+          <mat-icon>cancel</mat-icon>
+          <span class="font-semibold">{{ error }}</span>
+        </div>
+
+        <button mat-icon-button (click)="errors.splice(i, 1)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </ng-template>
+</div>

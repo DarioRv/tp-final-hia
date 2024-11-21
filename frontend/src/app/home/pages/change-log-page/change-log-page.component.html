@@ -1,0 +1,15 @@
+<section class="container-limited change-log min-h-screen px-2 py-5 lg:p-8">
+  <div class="flex flex-col justify-center items-center rounded h-full">
+    <span class="font-lg font-semibold text-core-secondary">Acá encontrarás nuestros comentarios acerca de las actualizaciones</span>
+    <h1 class="text-3xl md:text-5xl font-bold text-center text-core-primary dark:text-core-primary-400 mt-3">Actualizaciones y versiones</h1>
+    <ng-template #alert>
+      <span class="text-xl font-bold text-center flex items-center gap-2 bg-core-secondary-100 text-core-secondary px-3 rounded-lg">
+        No hay registros
+        <mat-icon>error</mat-icon>
+      </span>
+    </ng-template>
+    <div class="w-full flex flex-col gap-3" *ngIf="changeLogItems.length != 0; else alert">
+      <change-log-item [log]="log" *ngFor="let log of changeLogItems.reverse()"></change-log-item>
+    </div>
+  </div>
+</section>

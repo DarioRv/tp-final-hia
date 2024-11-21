@@ -1,0 +1,47 @@
+<mat-sidenav-container fullscreen class="dark:bg-slate-900">
+  <mat-sidenav
+    #sidenav
+    [mode]="mode"
+    [opened]="mode !== 'over' ? true : false"
+    class="rounded-r-[2rem] bg-core-primary dark:bg-slate-800"
+    [ngStyle]="{ width: '250px', border: 'none' }"
+  >
+    <mat-toolbar ngClass="bg-core-primary dark:bg-slate-800">
+      <span class="text-3xl text-white">Menú</span>
+    </mat-toolbar>
+    <mat-nav-list
+      *ngFor="let itemGroup of sidebarItems"
+      class="rounded-r-[2rem]"
+    >
+      <mat-list-item
+        *ngFor="let item of itemGroup"
+        [routerLink]="item.url"
+        (click)="mode == 'over' ? sidenav.toggle() : null"
+      >
+        <mat-icon matListItemIcon class="text-white">{{ item.icon }}</mat-icon>
+        <span class="text-white">{{ item.label }}</span>
+      </mat-list-item>
+      <mat-divider class="bg-white"></mat-divider>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-toolbar class="m-3 rounded-2xl w-auto dark:bg-slate-800">
+    <nav class="flex justify-between w-full items-center">
+      <div class="flex items-center gap-3">
+        <button mat-icon-button color="primary" (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1
+          class="text-xl md:text-3xl text-slate-500 dark:text-slate-300 text-pretty"
+        >
+          {{ title }}
+        </h1>
+      </div>
+      <user-menu></user-menu>
+    </nav>
+  </mat-toolbar>
+
+  <div class="container-limited p-6">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

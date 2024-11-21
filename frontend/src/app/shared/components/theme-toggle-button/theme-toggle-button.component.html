@@ -1,0 +1,27 @@
+<div [class]="'w-fit rounded-full p-1 select-none ' + backgroundColor">
+  <label for="theme" class="flex items-center">
+    <mat-icon
+    [class]="'transition-all duration-300 z-10 ' + iconColor"
+    [ngClass]="{
+      'scale-100' : currentTheme == 'dark',
+      }"
+    >
+      dark_mode
+    </mat-icon>
+    <mat-icon
+    [class]="'transition-all duration-300 z-10 ml-2 ' + iconColor"
+    [ngClass]="{
+      'scale-100' : currentTheme == 'light',
+      }"
+    >
+      light_mode
+    </mat-icon>
+    <div [class]="'size-6 absolute rounded-full transition-all duration-200 ' + selectedIconColor"
+    [ngClass]="{
+      'translate-x-0' : currentTheme == 'dark',
+      'translate-x-8' : currentTheme == 'light',
+      }"
+    ></div>
+  </label>
+  <input type="checkbox" name="theme" id="theme" class="hidden" (change)="toggleCurrentTheme(checkbox)" [checked]="currentTheme == 'dark' ? true : false" #checkbox>
+</div>

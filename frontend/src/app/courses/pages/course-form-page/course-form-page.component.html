@@ -1,0 +1,37 @@
+<form class="flex flex-col bg-white rounded shadow-md p-3 dark:bg-slate-700" [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+  <h2 class="text-core-primary dark:text-white">{{ editMode ? 'Editar curso' : 'Crear curso'}}</h2>
+  <input hidden formControlName="id">
+  <mat-form-field hintLabel="Máximo 50 caracteres" class="mb-3">
+    <mat-label>Nombre del curso</mat-label>
+    <input type="text" matInput required maxlength="50" formControlName="title">
+    <mat-hint align="end">{{title.value.length}}/50</mat-hint>
+    <mat-error *ngIf="title?.hasError('required')">
+      El nombre del curso es requerido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field hintLabel="Máximo 255 caracteres" class="mb-3">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput required formControlName="description"></textarea>
+    <mat-hint align="end">{{description.value.length}}/255</mat-hint>
+    <mat-error *ngIf="description?.hasError('required')">
+      La descripción del curso es requerido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field hintLabel="Máximo 50 caracteres" class="mb-3">
+    <mat-label>Programa universitario</mat-label>
+    <input type="text" matInput required maxlength="50" formControlName="universityProgram">
+    <mat-hint align="end">{{universityProgram.value.length}}/50</mat-hint>
+    <mat-error *ngIf="universityProgram?.hasError('required')">
+      El programa universitario del curso es requerido
+    </mat-error>
+  </mat-form-field>
+  <div class="actions flex flex-col gap-3">
+    <button mat-flat-button type="submit" color="primary" [disabled]="isLoading">
+      <mat-icon>send</mat-icon>
+      <span>{{ isLoading ? 'Enviando...' : 'Enviar'}}</span>
+    </button>
+    <button mat-button type="button" (click)="onCancel()">
+      <span>Cancelar</span>
+    </button>
+  </div>
+</form>

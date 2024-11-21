@@ -1,0 +1,13 @@
+<div class="h-screen flex flex-col justify-center dark:bg-slate-900">
+  <div class="container-limited">
+    <shared-theme-toggle-button class="absolute top-10 right-10"></shared-theme-toggle-button>
+    <h1 class="text-5xl text-center text-core-primary font-bold dark:text-core-primary-400">Registrar asistencia</h1>
+    <nav class="flex flex-col md:flex-row gap-3 justify-center items-center">
+      <a class="p-2 bg-core-primary-100 text-core-primary font-bold rounded hover:bg-core-primary-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-500" routerLink="introduce-code">Introducir código de asistencia</a>
+      <a class="p-2 bg-core-secondary-100 text-core-secondary font-bold rounded hover:bg-core-secondary-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-500" routerLink="history">Ver mi historial de asistencia</a>
+    </nav>
+  </div>
+  <div class="container-limited">
+    <router-outlet></router-outlet>
+  </div>
+</div>

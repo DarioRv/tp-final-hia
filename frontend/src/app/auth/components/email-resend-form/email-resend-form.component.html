@@ -1,0 +1,12 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="w-full mb-1">
+    <mat-label>Correo</mat-label>
+    <input type="text" matInput formControlName="email" required>
+    <mat-error *ngIf="email.hasError('required')">El email es requerido</mat-error>
+    <mat-error *ngIf="email.hasError('email')">El formato es incorrecto</mat-error>
+  </mat-form-field>
+  <button class="block mx-auto" mat-flat-button color="primary" type="submit" [disabled]="isSubmitting">
+    {{ isSubmitting ? 'Enviando' : 'Reenviar correo'}}
+    <mat-spinner class="size-3 inline-block" *ngIf="isSubmitting"></mat-spinner>
+  </button>
+</form>

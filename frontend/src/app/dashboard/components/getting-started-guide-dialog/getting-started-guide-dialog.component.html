@@ -1,0 +1,72 @@
+<div class="flex justify-between items-center pt-3" mat-dialog-title>
+  <h3 class="m-0 flex-grow text-xl font-bold">Inicio rápido</h3>
+  <button mat-mini-fab mat-dialog-close color="basic">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-stepper [linear]="false" #stepper mat-dialog-content>
+  <mat-step label="Cursos">
+    <section>
+      <h4 class="text-core-primary dark:text-core-primary-400">Cursos</h4>
+      <p>En esta sección encontrarás todos los cursos que has creado</p>
+      <div class="flex gap-2">
+        <button mat-button color="primary" matStepperPrevious>Back</button>
+        <button mat-flat-button color="primary" matStepperNext>Next</button>
+      </div>
+    </section>
+  </mat-step>
+  <mat-step label="Listado de alumnos">
+    <section>
+      <h4 class="text-core-primary dark:text-core-primary-400">Tus alumnos</h4>
+      <p>
+        Al seleccionar un curso encontrarás una pestaña donde podrás llevar el
+        control del listado de tus alumnos. Podrás cargar un listado mediante un
+        archivo csv o agregarlos completando sus datos.
+      </p>
+      <div class="flex gap-2">
+        <button mat-button color="primary" matStepperPrevious>Back</button>
+        <button mat-flat-button color="primary" matStepperNext>Next</button>
+      </div>
+    </section>
+  </mat-step>
+  <mat-step label="Asistencia">
+    <section>
+      <h4 class="text-core-primary dark:text-core-primary-400">
+        Revisa la asistencia del día
+      </h4>
+      <p>
+        Dentro de cada curso podrás observar una pestaña de asistencia donde se
+        te informará los alumnos que hayan asistido a la clase.
+      </p>
+      <h4 class="text-core-primary dark:text-core-primary-400">
+        ¿Como registran mis alumnos su asistencia?
+      </h4>
+      <p>
+        Dentro de la página del curso podrás generar un link o código QR al que
+        tus alumnos podrán acceder y se les solicitará que proporcionen su
+        libreta universitaria. Al hacerlo automáticamente se registrará su
+        asistencia.
+      </p>
+      <h4 class="text-core-primary dark:text-core-primary-400">
+        Horario de asistencia
+      </h4>
+      <p>
+        Podrás indicar cual son los días y horarios en que estará disponible la
+        asistencia.
+      </p>
+      <div class="flex gap-2">
+        <button mat-button color="primary" matStepperPrevious>Back</button>
+        <button mat-flat-button color="primary" matStepperNext>Next</button>
+      </div>
+    </section>
+  </mat-step>
+  <mat-step label="Listo">
+    <h4>Todo listo</h4>
+    <p>Empieza a navegar desde el sidebar</p>
+    <p>
+      <small class="text-core-primary dark:text-core-primary-400"
+        >No te preocupes. Cada sección tiene un instructivo.</small
+      >
+    </p>
+  </mat-step>
+</mat-stepper>

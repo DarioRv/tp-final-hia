@@ -1,0 +1,10 @@
+<div class="dialog bg-slate-100 rounded border-slate-400 shadow p-3 dark:bg-slate-700">
+  <h1 mat-dialog-title class="text-core-primary dark:text-core-primary-400">{{ data.title }}</h1>
+  <div mat-dialog-content>
+    <p>{{ data.description }}</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button color="primary" cdkFocusInitial (click)="onNoClick()">{{ data.cancelButtonText }}</button>
+    <button mat-button color="warn" (click)="onConfirm()">{{ data.confirmButtonText }}</button>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<mat-expansion-panel class="rounded shadow-none bg-slate-100 dark:bg-slate-700" #panel [hideToggle]="true">
+  <mat-expansion-panel-header class="py-5 h-auto bg-slate-200 dark:bg-slate-800">
+      <mat-panel-title class="flex flex-col md:flex-row gap-3">
+        <mat-chip-listbox>
+          <mat-chip class="bg-core-secondary dark:text-core-secondary-400"><span class="text-white">v{{ log.version }}</span></mat-chip>
+        </mat-chip-listbox>
+        <h3 class="text-base md:text-lg text-slate-600 m-0 font-medium dark:text-white">{{ log.title }}</h3>
+      </mat-panel-title>
+      <mat-panel-description class="flex justify-end">
+        <p class="m-0 dark:text-slate-400"><span class="hidden md:inline">Lanzada el</span> {{ log.date }}</p>
+      </mat-panel-description>
+  </mat-expansion-panel-header>
+    <div *ngFor="let change of log.changes" class="mt-5">
+      <h4 class="text-core-secondary font-medium dark:text-core-secondary-200">[ {{ change.type }} ]</h4>
+      <ul class="text-base">
+        <li class="text-slate-500 dark:text-white" *ngFor="let description of change.descriptions">{{ description }}</li>
+      </ul>
+    </div>
+</mat-expansion-panel>

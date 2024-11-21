@@ -1,0 +1,11 @@
+dist/
+node_modules/
+.gitignore
+.git/
+mysql/
+.angular
+.firebaserc
+.firebase
+firebase.json
+.github
+.vscode

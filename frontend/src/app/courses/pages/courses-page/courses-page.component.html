@@ -1,0 +1,42 @@
+<section class="grid place-items-center" [ngSwitch]="status">
+  <div class="w-full">
+    <course-search-box></course-search-box>
+    <div class="actions mb-3">
+      <button mat-flat-button color="primary" routerLink="../new-course">
+        <mat-icon>add</mat-icon>
+        <span>Añadir curso</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="loading-layout w-full" *ngSwitchCase="'pending'">
+    <card-placeholder></card-placeholder>
+    <card-placeholder></card-placeholder>
+    <card-placeholder></card-placeholder>
+  </div>
+
+  <div class="courses w-full" *ngSwitchCase="'success'">
+    <div class="mx-auto" asistAlert *ngIf="courses.length <= 0">
+      <h1 asistAlertTitle>No hay cursos</h1>
+      <p asistAlertDescription>No se encontraron cursos</p>
+    </div>
+    <div class="courses-list w-full">
+      <dashboard-course-card
+        *ngFor="let course of courses"
+        [course]="course"
+      ></dashboard-course-card>
+    </div>
+  </div>
+
+  <div asistAlert *ngSwitchCase="'error'">
+    <h1 asistAlertErrorTitle>Error</h1>
+    <p asistAlertDescription>Ocurrió un error al cargar los cursos</p>
+  </div>
+
+  <div asistAlert *ngSwitchCase="'fail'">
+    <h1 asistAlertTitle>No hay internet</h1>
+    <p asistAlertDescription>
+      No se pudo cargar los cursos, verifica tu conexión a internet
+    </p>
+  </div>
+</section>

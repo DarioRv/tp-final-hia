@@ -1,0 +1,20 @@
+<form [formGroup]="attendanceForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="mt-5 w-full">
+    <mat-label>Libreta universitaria completa</mat-label>
+    <input
+      matInput
+      type="text"
+      placeholder="Ej: APU003951"
+      formControlName="lu"
+    />
+    <mat-error>El LU es requerido</mat-error>
+  </mat-form-field>
+  <div class="w-fit mx-auto">
+    <button
+      class="border border-white text-white rounded px-3 py-2 transition-all hover:enabled:bg-white hover:enabled:text-core-primary dark:bg-slate-600 dark:border-none"
+      type="submit"
+    >
+      {{ true ? "Registrar asistencia" : "Registrando..." }}
+    </button>
+  </div>
+</form>

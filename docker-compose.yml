@@ -1,0 +1,160 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '4200:80'
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8080'
+    depends_on:
+      - mysql-master
+    networks:
+      - mysql-network
+
+  mysql-master:
+    image: mysql:8.0
+    container_name: mysql-master-new
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_asistencia
+      MYSQL_REPLICATION_USER: root
+      MYSQL_REPLICATION_PASSWORD: root
+    volumes:
+      - ./master-data:/var/lib/mysql
+    ports:
+      - '3310:3306'
+    command: >
+      --server-id=1
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --gtid_mode=ON
+      --enforce_gtid_consistency=TRUE
+      --master_info_repository=TABLE
+      --relay_log_info_repository=TABLE
+      --log_slave_updates=TRUE
+      --read_only=FALSE
+    networks:
+      - mysql-network
+
+  mysql-slave:
+    image: mysql:8.0
+    container_name: mysql-slave-new
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test_db
+      MYSQL_REPLICATION_USER: root
+      MYSQL_REPLICATION_PASSWORD: root
+    volumes:
+      - ./slave-data:/var/lib/mysql
+    ports:
+      - '3311:3306'
+    command: >
+      --server-id=2
+      --log-bin=mysql-bin
+      --relay-log=relay-bin
+      --read-only=1
+      --binlog-format=ROW
+      --gtid_mode=ON
+      --enforce_gtid_consistency=TRUE
+      --master_info_repository=TABLE
+      --relay_log_info_repository=TABLE
+      --log_slave_updates=TRUE
+    depends_on:
+      - mysql-master
+    networks:
+      - mysql-network
+
+  haproxy:
+    image: haproxy:latest
+    container_name: haproxy
+    restart: always
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    depends_on:
+      - mysql-master
+      - mysql-slave
+    networks:
+      - mysql-network
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf1
+    restart: always
+    networks:
+      - mysql-network
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf
+    depends_on:
+      - mysql-master
+      - mysql-slave
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus1
+    restart: always
+    ports:
+      - '9091:9090'
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - mysql-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana1
+    restart: always
+    ports:
+      - '3001:3000'
+    networks:
+      - mysql-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: haproxy
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '8080:80'
+    depends_on:
+      - haproxy
+    networks:
+      - mysql-network
+
+  backup:
+    image: debian:latest
+    container_name: mysql-backup
+    restart: always
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ./backups:/backups
+      - ./backup.sh:/backup.sh
+    networks:
+      - mysql-network
+    entrypoint: >
+      bash -c "
+      apt-get update &&
+      apt-get install -y default-mysql-client &&
+      chmod +x /backup.sh &&
+      while true; do /backup.sh; sleep 3600; done"
+
+networks:
+  mysql-network:
+    driver: bridge
