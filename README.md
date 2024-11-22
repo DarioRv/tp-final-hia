@@ -1,4 +1,4 @@
-# TP Final de Herramientas Informáticas 2024
+# TP Final de Herramientas Informáticas
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/452a1140-c646-43be-ac52-f3507d2e49e0/deploy-status)](https://app.netlify.com/sites/sistema-asistencia/deploys)
 ![GitHub](https://img.shields.io/github/license/vidalruben/TPFinal-HI2024)
