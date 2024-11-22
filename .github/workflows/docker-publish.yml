@@ -2,7 +2,7 @@ name: Publicar imagenes
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   build-backend:
@@ -42,4 +42,4 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER }}/backend:latest
+          tags: ${{ secrets.DOCKERHUB_USER }}/frontend:latest
