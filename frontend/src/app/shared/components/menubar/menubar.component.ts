@@ -33,7 +33,7 @@ export class MenubarComponent implements OnInit {
         routerLink: '/auth/sign-in',
       },
       {
-        label: 'Registrarme',
+        label: 'Registrarme.facultad',
         routerLink: '/auth/sign-up',
       },
     ];
